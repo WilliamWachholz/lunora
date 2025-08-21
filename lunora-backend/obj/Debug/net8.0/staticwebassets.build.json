@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "IFSC8vEZxYES4uPHoEhhtpvMnzVv41FCa2jbOUiMsK4=",
+  "Source": "lunora-backend",
+  "BasePath": "_content/lunora-backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

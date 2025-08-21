@@ -1,0 +1,6 @@
+@lunora_backend_HostAddress = http://localhost:5204
+
+GET {{lunora_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
