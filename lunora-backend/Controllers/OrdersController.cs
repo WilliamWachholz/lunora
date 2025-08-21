@@ -62,6 +62,8 @@ namespace LunoraBackend.Controllers
 
             this._context.Orders.Add(order);
 
+            this._context.OrderItems.AddRange(order.OrderItems);
+
             await this._context.SaveChangesAsync();
 
             return Ok(true);

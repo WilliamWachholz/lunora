@@ -115,7 +115,12 @@ namespace LunoraBackend.Controllers
                 new Claim(ClaimTypes.Email, user.Email),
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:SecretKey"]));
+            
+            var jwtSecretKey = Environment.GetEnvironmentVariable("JWT_SECRET") 
+                ?? _configuration["JwtSettings:SecretKey"];
+                
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(   

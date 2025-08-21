@@ -12,6 +12,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+var jwtSecretKey = Environment.GetEnvironmentVariable("JWT_SECRET") 
+    ?? builder.Configuration["JwtSettings:SecretKey"];
+    
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -24,24 +29,43 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
             ValidAudience = builder.Configuration["JwtSettings:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"]))
+                Encoding.UTF8.GetBytes(jwtSecretKey))
         };
 
         options.MapInboundClaims = false;
         options.TokenValidationParameters.NameClaimType = "name";
     });
 
-builder.Services.AddDbContext<LunoraContext>(options =>
+var environment = builder.Environment.EnvironmentName;
+
+var activeDatabase = Environment.GetEnvironmentVariable("ACTIVE_DATABASE") 
+    ?? builder.Configuration["ConnectionStrings:ActiveDatabase"];
+    
+
+var postgreConnection = Environment.GetEnvironmentVariable("DATABASE_URL") 
+    ?? builder.Configuration.GetConnectionString("PostgreSql");
+
+var sqlServerConnection = Environment.GetEnvironmentVariable("DATABASE_URL") 
+    ?? builder.Configuration.GetConnectionString("SqlServer");
+
+
+if (activeDatabase == "PostgreSql")
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("constring"));
-});
+    builder.Services.AddDbContext<LunoraContext>(options =>
+        options.UseNpgsql(postgreConnection));
+}
+else
+{
+    builder.Services.AddDbContext<LunoraContext>(options =>
+        options.UseSqlServer(sqlServerConnection));
+}
 
 
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular",
-        builder => builder.WithOrigins("http://localhost:4200")
+        builder => builder.WithOrigins("http://localhost:4200", "https://lunora.netlify.app")
                           .AllowAnyHeader()
                           .AllowAnyMethod()
                           .AllowCredentials()
@@ -67,57 +91,6 @@ app.UseCors("AllowAngular");
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-
-app.Use(async (context, next) =>
-{
-    var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
-    
-    // Log the incoming request
-    logger.LogInformation("Request: {Method} {Path}", context.Request.Method, context.Request.Path);
-    
-    // Check authorization header
-    var authHeader = context.Request.Headers["Authorization"].ToString();
-    logger.LogInformation("Authorization Header: {AuthHeader}", authHeader);
-    
-    // Check if we have a token
-    if (!string.IsNullOrEmpty(authHeader) && authHeader.StartsWith("Bearer "))
-    {
-        var token = authHeader.Substring(7);
-        logger.LogInformation("JWT Token: {Token}", token);
-        
-        // Try to decode the token manually to see what's in it
-        try
-        {
-            var handler = new JwtSecurityTokenHandler();
-            var jwtToken = handler.ReadJwtToken(token);
-            logger.LogInformation("Token Claims:");
-            foreach (var claim in jwtToken.Claims)
-            {
-                logger.LogInformation("  {Type}: {Value}", claim.Type, claim.Value);
-            }
-            logger.LogInformation("Token Issuer: {Issuer}", jwtToken.Issuer);
-            logger.LogInformation("Token Audience: {Audience}", jwtToken.Audiences?.FirstOrDefault());
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Failed to decode JWT token");
-        }
-    }
-    
-    await next();
-    
-    // After authentication middleware runs
-    logger.LogInformation("After authentication - IsAuthenticated: {IsAuth}", context.User.Identity?.IsAuthenticated);
-    if (context.User.Identity?.IsAuthenticated == true)
-    {
-        logger.LogInformation("User Claims after auth:");
-        foreach (var claim in context.User.Claims)
-        {
-            logger.LogInformation("  {Type}: {Value}", claim.Type, claim.Value);
-        }
-    }
-});
 
 app.MapControllers();
 
