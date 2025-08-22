@@ -7,6 +7,11 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(5000);
+});
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
