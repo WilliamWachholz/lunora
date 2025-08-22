@@ -32,6 +32,7 @@ Vercel to host Angular frontend
 VSCode for all development
 
 ## Info (for developers)
+
 To setup database
 Create your database (Postgresql or SqlServer) on your server
 Change the ConnectionStrings.ActiveDatabase to switch between database type
@@ -40,13 +41,16 @@ Execute migrations to create the metadata
 dotnet ef migrations initialcreate
 dotnet ef database update
 
-## To deploy backend
+To deploy backend
 Render keep track of commit in the repository
+
 To deploy frontend
 ng build --configuration production
 vercel --prod
+
 To run backend on dev
 dotnet run
+
 To run frontend on dev
 ng run
 
