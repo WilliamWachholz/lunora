@@ -10,8 +10,7 @@ namespace LunoraBackend.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase
-    {
-    
+    {        
         private readonly LunoraContext _context;
 
         public OrdersController(LunoraContext context)
@@ -43,7 +42,7 @@ namespace LunoraBackend.Controllers
             {
                 return BadRequest("User authenticated but has no claims");
             }
-            
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)
                 ?? User.FindFirstValue("sub")
                 ?? User.FindFirstValue("nameidentifier")  // lowercase               
@@ -62,11 +61,56 @@ namespace LunoraBackend.Controllers
 
             this._context.Orders.Add(order);
 
-            this._context.OrderItems.AddRange(order.OrderItems);
+            order.OrderItems.Select(r => r.OrderId = order.Id).ToList();
+
+            this._context.OrderItem.AddRange(order.OrderItems);
 
             await this._context.SaveChangesAsync();
 
             return Ok(true);
         }
+
+
+
+        [HttpGet("myorders")]
+        public async Task<ActionResult<IEnumerable<MyOrderDto>>> GetMyOrders()
+        {
+             if (User.Identity == null)
+            {
+                return BadRequest("User.Identity is null - authentication not working");
+            }
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Unauthorized("User is not authenticated");
+            }
+
+            // Check if ClaimsPrincipal is populated
+            if (User.Claims == null)
+            {
+                return BadRequest("User.Claims is null - check authentication middleware");
+            }
+
+            // Now check if we have any claims
+            if (!User.Claims.Any())
+            {
+                return BadRequest("User authenticated but has no claims");
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+                ?? User.FindFirstValue("sub")
+                ?? User.FindFirstValue("nameidentifier")  // lowercase               
+                ?? User.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+
+            var orders = await _context.Orders
+                    .Where(o => o.UserId == userId)
+                    .OrderByDescending(o => o.Id)
+                    .ToListAsync();
+            
+            var myOrders = orders.Select(r => new MyOrderDto() { Number = r.Id.ToString("ORD-000"), CreatedAt = r.OrderDate, Total = r.TotalAmount, Status = r.Status.ToString() }).ToList();
+
+            return Ok(myOrders);
+        }
+
     }
 }
