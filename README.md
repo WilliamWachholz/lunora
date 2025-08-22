@@ -6,7 +6,7 @@ It contains all the basics features of an e-commerce.
 
 ## Flow
 Create new login on Register menu  
-View product list/details and add cart  
+View product list/details and add to cart  
 Review cart and proceeed to checkout  
 Inform all shippment and payment information  
 Place order  
