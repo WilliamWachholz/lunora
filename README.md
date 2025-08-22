@@ -1,10 +1,10 @@
-# lunora
+# Lunora
 
 Lunora is a demo e-commerce application specialized in products related to the moon.
 I have made it as part of my professional portfolio. 
 It contains all the basics features of an e-commerce.
 
-##Flow
+## Flow
 Create new login on Register menu
 View product list/details and add cart
 Review cart and proceeed to checkout
@@ -61,6 +61,6 @@ Order print in page confirmation
 Send order notifications by email
 Forgot your passowrd feature
 
-###Feel free to fork this project
+### Feel free to fork this project
 
 ###I do not own the rights for the images
