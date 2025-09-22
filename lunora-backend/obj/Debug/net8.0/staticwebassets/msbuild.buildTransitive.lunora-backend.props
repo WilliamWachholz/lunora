@@ -1,3 +1,3 @@
 ﻿<Project>
-  <Import Project="..\buildMultiTargeting\lunora-backend.props" />
+  <Import Project="../buildMultiTargeting/lunora-backend.props" />
 </Project>

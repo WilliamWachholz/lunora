@@ -1,0 +1,44 @@
+# Environment variables
+.env
+.env.bak
+.env.local
+.env.production
+appsettings.json
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Notepad++ bak 
+*.bak
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+bin/
+debug/
+
+# Build outputs
+dist/
+build/
+*.tgz

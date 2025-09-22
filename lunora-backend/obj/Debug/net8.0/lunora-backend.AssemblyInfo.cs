@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("lunora-backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+59b34aaea0730480fbf0e34de94761c31d46235a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4d44b855fae3a4953f6080c9f4c5273f53f11131")]
 [assembly: System.Reflection.AssemblyProductAttribute("lunora-backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("lunora-backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
