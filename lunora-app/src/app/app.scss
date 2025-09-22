@@ -1,0 +1,26 @@
+.app-header {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  .navbar {
+    padding: 0.5rem 0;
+  }
+}
+
+main {
+  min-height: calc(100vh - 200px); // Adjust based on your header/footer height
+}
+
+.app-footer {
+  margin-top: auto;
+  
+  p {
+    margin-bottom: 0;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 767.98px) {
+  .navbar-collapse {
+    padding-top: 1rem;
+  }
+}

@@ -1,0 +1,77 @@
+// Import Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+// Import Font Awesome
+@import 'font-awesome/scss/font-awesome';
+
+@import 'ngx-toastr/toastr';
+
+// Custom variables
+$primary: #0d6efd;
+$secondary: #6c757d;
+$success: #198754;
+$danger: #dc3545;
+$warning: #ffc107;
+$info: #0dcaf0;
+$light: #f8f9fa;
+$dark: #212529;
+
+// Body
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+[routerLink], [ng-reflect-router-link], [data-bs-toggle], .clickable {
+  cursor: pointer;
+}
+
+// Layout
+.app-header {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.app-footer {
+  margin-top: auto;
+}
+
+// Utility classes
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.img-cover {
+  object-fit: cover;
+}
+
+// Override Bootstrap
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.btn {
+  font-weight: 500;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 767.98px) {
+  .navbar-collapse {
+    padding-top: 1rem;
+  }
+}

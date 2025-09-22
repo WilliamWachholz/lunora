@@ -1,0 +1,33 @@
+.checkout-page {
+  .empty-cart {
+    padding: 3rem;
+    text-align: center;
+    background-color: white;
+    border-radius: 0.5rem;
+  }
+
+  .form-control {
+    &:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.25rem rgba(var(--primary-color), 0.25);
+    }
+  }
+
+  .order-summary {
+    .list-group-item {
+      padding: 0.75rem 0;
+    }
+
+    .total-amount {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+  }
+
+  .payment-methods {
+    .form-check-input:checked {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color)
+    }
+  }  
+}

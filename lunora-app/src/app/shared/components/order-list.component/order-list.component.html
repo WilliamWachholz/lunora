@@ -1,0 +1,25 @@
+<div class="orders-grid">
+    <div class="grid-header">
+      <div class="col-number">Order Number</div>
+      <div class="col-date">Created At</div>
+      <div class="col-total">Total Amount</div>
+      <div class="col-status">Status</div>
+    </div>
+    
+    <div class="grid-row" *ngFor="let order of Orders">
+      <div class="col-number">{{ order.number }}</div>
+      <div class="col-date">{{ formatDate(order.createdAt) }}</div>
+      <div class="col-total">{{ formatCurrency(order.total) }}</div>
+      <div class="col-status">{{ order.status }}</div>
+    </div>
+
+    
+</div>
+
+<div class="card-body">     
+    <div class="action-buttons">
+    <button class="btn btn-dark" (click)="continueShopping()">
+        Back to Shop
+    </button>
+    </div>
+</div>

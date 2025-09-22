@@ -1,0 +1,110 @@
+.confirmation-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #bcbdc1 0%, #342c3d 100%);
+  padding: 20px;
+}
+
+.confirmation-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 700px;
+  overflow: hidden;
+}
+
+.card-header {
+  background: linear-gradient(135deg, #101010 0%, #646969 100%);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+
+  h2 {
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0;
+    opacity: 0.9;
+  }
+}
+
+.card-body {
+  padding: 2rem;
+}
+ 
+
+.info-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e1e5e9;
+
+  h4 {
+    margin: 0 0 0.5rem;
+    color: #333;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0;
+    color: #666;
+  }
+}
+ 
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &.btn-dark {
+      background: linear-gradient(135deg, #101010 0%, #646969 100%);
+      border: none;
+      color: white;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    &.btn-outline {
+      background: transparent;
+      border: 2px solid #101010;
+      color: #101010;
+
+      &:hover {
+        background: #101010;
+        color: white;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .confirmation-container {
+    padding: 10px;
+  }
+
+  .card-header,
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+}
